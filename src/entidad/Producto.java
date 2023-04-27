@@ -10,7 +10,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(Long id, String codigo, String nombre, Double precio, String categoria) {
+    public Producto(Long id, String codigo, String nombre, float precio, String categoria) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -42,11 +42,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Double getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 
