@@ -6,16 +6,16 @@ public class Venta {
 
     private Long id;
     private Vendedor vendedor;
-    private List<Producto> producto;
+    private List<Producto> productos;
     private float comision;
 
     public Venta() {
     }
 
-    public Venta(Long id,Vendedor vendedor, List<Producto> producto, float comision) {
+    public Venta(Long id,Vendedor vendedor, List<Producto> productos, float comision) {
         this.id=id;
         this.vendedor = vendedor;
-        this.producto = producto;
+        this.productos = productos;
         this.comision=comision;
     }
 
@@ -35,12 +35,12 @@ public class Venta {
         this.vendedor = vendedor;
     }
 
-    public List<Producto> getProducto() {
-        return producto;
+    public List<Producto> getProductos() {
+        return productos;
     }
 
-    public void setProducto(List<Producto> producto) {
-        this.producto = producto;
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
     public float getComision() {
         return comision;
@@ -55,7 +55,15 @@ public class Venta {
         return "Venta{" +
                 "id=" + id +
                 ", vendedor=" + vendedor +
-                ", producto=" + producto +
+                ", productos=" + this.verProductos(productos) +
                 '}';
+    }
+
+    private String verProductos(List<Producto> productos){
+        String mensaje="";
+        for(Producto producto:productos){
+            mensaje=mensaje+ producto.toString()+" ";
+        }
+        return mensaje;
     }
 }
