@@ -16,8 +16,6 @@ public class ProductoRepoMemo implements IProductoRepoMemo{
         this.productos=productos;
     }
 
-
-
     @Override
     public List<Producto> verTodos() {
         return this.productos;
