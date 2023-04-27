@@ -4,19 +4,19 @@ import java.util.List;
 
 public class Venta {
 
-    private static Long siguienteId = 1L;
     private Long id;
     private Vendedor vendedor;
     private List<Producto> producto;
+    private float comision;
 
     public Venta() {
     }
 
-    public Venta(Vendedor vendedor, List<Producto> producto) {
-        this.id = siguienteId;
-        siguienteId++;
+    public Venta(Long id,Vendedor vendedor, List<Producto> producto, float comision) {
+        this.id=id;
         this.vendedor = vendedor;
         this.producto = producto;
+        this.comision=comision;
     }
 
     public Long getId() {
@@ -41,6 +41,13 @@ public class Venta {
 
     public void setProducto(List<Producto> producto) {
         this.producto = producto;
+    }
+    public float getComision() {
+        return comision;
+    }
+
+    public void setComision(float comision) {
+        this.comision = comision;
     }
 
     @Override
