@@ -23,7 +23,7 @@ public class ProductoLoader {
     }
 
     public static Producto getProductoUno(){
-        return new Producto(1L, "P001", "Laptop HP", 15000.0f, "Electronica"),
+        return new Producto(1L, "P001", "Laptop HP", 15000.0f, "Electronica");
     }
 
     public static Producto getProductoDos(){
