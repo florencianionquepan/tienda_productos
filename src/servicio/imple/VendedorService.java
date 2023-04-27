@@ -41,7 +41,8 @@ public class VendedorService implements IVendedorService {
         Optional<Vendedor> oProd=this.repo.buscarByCodigo(codigo);
         if(oProd.isEmpty()){
             throw new VendedorException((String.format(
-                    "El vendedor con el codigo %s no existe",codigo));
+                    "El vendedor con el codigo %s no existe",codigo)
+            ));
         }
         return oProd.get();
     }
