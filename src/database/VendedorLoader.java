@@ -14,4 +14,12 @@ public class VendedorLoader {
                 )
         );
     }
+
+    public static Vendedor getVendedorUno(){
+        return new Vendedor(1L, "V001", "Juan Perez", 15000.0f);
+    }
+
+    public static Vendedor getVendedorDos(){
+        return new Vendedor(2L, "V002", "Ana Gomez", 12000.0f);
+    }
 }
