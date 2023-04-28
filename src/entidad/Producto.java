@@ -90,6 +90,7 @@ public class Producto {
         sb.append(", nombre='").append(nombre).append('\'');
         sb.append(", precio=").append(precio);
         sb.append(", categoria='").append(categoria).append('\'');
+        sb.append(", cantidad=").append(cantidad);
         if (!ventas.isEmpty()) {
             sb.append(", ventas=");
             sb.append("[idVenta: ");
