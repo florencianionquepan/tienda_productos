@@ -30,7 +30,6 @@ public class VentaLoader {
             )
     );
 
-
     public static List<Venta> cargarVentas(){
         return new ArrayList<Venta>(
                 Arrays.asList(
