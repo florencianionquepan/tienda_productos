@@ -47,7 +47,7 @@ public class VentaService implements IVentaService {
 
     @Override
     public List<Venta> listar() {
-        return this.repo.listar();
+        return this.repo.verTodos();
     }
 
     private float calcularComision(Venta nueva){
