@@ -35,4 +35,9 @@ public class VentaRepoMemo implements IVentaRepoMemo{
                         .anyMatch(p->p.getCodigo().equals(producto.getCodigo())))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Venta> listar() {
+        return this.ventas;
+    }
 }
