@@ -2,11 +2,10 @@ package repository.memoria;
 
 import entidad.Producto;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ProductoRepoMemo implements IProductoRepoMemo{
 
@@ -56,5 +55,16 @@ public class ProductoRepoMemo implements IProductoRepoMemo{
                 .filter(prod->prod.getPrecio()>=desde
                 && prod.getPrecio()<=hasta)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void eliminar(String codigo) {
+        int index = IntStream.range(0, this.productos.size())
+                .filter(i -> this.productos.get(i).getCodigo().equals(codigo))
+                .findFirst()
+                .orElse(-1);
+        if (index >= 0) {
+            this.productos.remove(index);
+        }
     }
 }
