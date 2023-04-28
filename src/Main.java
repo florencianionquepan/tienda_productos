@@ -142,12 +142,26 @@ public class Main {
     static public boolean accionVendedor(){
         boolean volver=false;
         switch (opcionVende){
-            //case 1 : crearVendedor(); break;
-            //case 2 : listarVendedores(); break;
+            case 1 : crearVendedor(); break;
+            case 2 : serVende.listar().forEach(System.out::println);; break;
             case 0 : volver=true;break;
             default : System.out.println("Error en la opcion");break;
         }
         return volver;
+    }
+
+    static public void crearVendedor(){
+        System.out.println("\nCREAR NUEVO VENDEDOR:");
+        System.out.print("Ingrese el codigo: ");
+        String codigo = scanner.nextLine();
+        System.out.print("Ingrese el nombre: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Ingrese el sueldo: ");
+        float sueldo = scanner.nextFloat();
+
+        Vendedor nuevoVendedor = new Vendedor(0L,codigo,nombre,sueldo);
+        Vendedor vendeCreado=serVende.crear(nuevoVendedor);
+        System.out.println("\nVendedor creado con éxito." + vendeCreado);
     }
 
     //MENU VENTAS
