@@ -210,20 +210,22 @@ public class Main {
         return volver;
     }
 
+    //Registrar una venta
     static public void registrarVenta() {
         boolean salirRegVenta = false;
         Vendedor vende = null;
+        List<Producto> productosCarrito=new ArrayList<Producto>();
         while (!salirRegVenta) {
             System.out.println("Registro de Venta");
             System.out.println("------------------");
             vende = insertarVendedor();
             System.out.println("Ha seleccionado al vendedor: "+vende);
-            List<Producto> productos = insertarProductos();
-            if (vende == null || productos == null) {
+            productosCarrito = insertarProductos();
+            if (vende == null || productosCarrito == null) {
                 salirRegVenta = true;
             }
         }
-        Venta ventaNueva = new Venta(0L, vende, productos,0f);
+        Venta ventaNueva = new Venta(0L, vende, productosCarrito,0f);
         try{
             Venta creada=serVenta.crear(ventaNueva);
             System.out.println("Venta creada: ");
@@ -266,7 +268,7 @@ public class Main {
 
     public static List<Producto> insertarProductos(){
         boolean salir=false;
-        List<Producto> productos=new ArrayList<Producto>();
+        List<Producto> productosCarrito=new ArrayList<Producto>();
         do{
             System.out.println("¿Desea buscar un producto existente o crear uno nuevo?");
             System.out.println("1.Buscar producto por codigo");
@@ -276,7 +278,7 @@ public class Main {
             System.out.println("5.Crear producto nuevo");
             System.out.println("6.Ya tengo mis productos");
             System.out.println("Productos hasta el momento: ");
-            for(Producto produ:productos){
+            for(Producto produ:productosCarrito){
                 produ.toString();
             }
             System.out.println("7.Cancelar registro de venta");
@@ -285,14 +287,14 @@ public class Main {
             scanner.nextLine();
             switch (opcionProducto){
                 case 1:
-                    buscarProductoByCodigo(productos);
+                    buscarProductoByCodigo(productosCarrito);
                     break;
                 case 2:
                     System.out.println("Ingrese nombre del producto:");
                     String nombre = scanner.nextLine();
                     try{
                         serProducto.buscarByNombre(nombre).forEach(System.out::println);
-                        buscarProductoByCodigo(productos);
+                        buscarProductoByCodigo(productosCarrito);
                     }catch(ProductoException ex){
                         System.out.println(ex.getMessage());
                     }
@@ -302,7 +304,7 @@ public class Main {
                     String categoria = scanner.nextLine();
                     try{
                         serProducto.buscarByCategoria(categoria).forEach(System.out::println);
-                        buscarProductoByCodigo(productos);
+                        buscarProductoByCodigo(productosCarrito);
                     }catch(ProductoException ex){
                         System.out.println(ex.getMessage());
                     }
@@ -315,7 +317,7 @@ public class Main {
                     scanner.nextLine();
                     try{
                         serProducto.buscarByRangoPrecio(desde,hasta).forEach(System.out::println);
-                        buscarProductoByCodigo(productos);
+                        buscarProductoByCodigo(productosCarrito);
                     }catch(ProductoException ex){
                         System.out.println(ex.getMessage());
                     }
@@ -328,15 +330,15 @@ public class Main {
                 default:System.out.println("\nOpción inválida.");break;
             }
         }while(!salir);
-        return productos;
+        return productosCarrito;
     }
 
-    private static void buscarProductoByCodigo(List<Producto> productos){
+    private static void buscarProductoByCodigo(List<Producto> productosCarro){
         System.out.println("Ingrese codigo del producto:");
         String codigo = scanner.nextLine();
         try{
             Producto produ=serProducto.buscarByCodigo(codigo);
-            productos.add(produ);
+            productosCarro.add(produ);
             System.out.println("Producto añadido al carrito: "+produ);
             System.out.println("Puedes seguir añadiendo productos");
         }catch(ProductoException ex){
