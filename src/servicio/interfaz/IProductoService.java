@@ -10,5 +10,5 @@ public interface IProductoService {
     Producto buscarByCodigo(String codigo);
     List<Producto> buscarByNombre(String nombre);
     List<Producto> buscarByRangoPrecio(float precioDesde, float precioHasta);
-    List<Producto> buscarByCategoria(List<Producto> productos);
+    List<Producto> buscarByCategoria(String categoria);
 }

@@ -54,7 +54,7 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public List<Producto> buscarByCategoria(List<Producto> productos) {
-        return this.buscarByCategoria(productos);
+    public List<Producto> buscarByCategoria(String cate) {
+        return this.repo.buscarByCategoria(cate);
     }
 }
