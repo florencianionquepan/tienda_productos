@@ -45,6 +45,11 @@ public class VentaService implements IVentaService {
         return this.repo.listarByProducto(producto);
     }
 
+    @Override
+    public List<Venta> listar() {
+        return this.repo.listar();
+    }
+
     private float calcularComision(Venta nueva){
         float comision=0.05f;
         if(nueva.getProductos().size()>2){
