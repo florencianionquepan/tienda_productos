@@ -26,7 +26,7 @@ public class VentaLoader {
 
     static List<Producto> getProductosVentaDos=new ArrayList<Producto>(
             Arrays.asList(
-                    prodUno,prodDos,prodTres,prodCuatro
+                    prodDos,prodTres,prodCuatro
             )
     );
 
