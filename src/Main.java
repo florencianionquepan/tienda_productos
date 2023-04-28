@@ -49,18 +49,15 @@ public class Main {
 
     //MENU Y ACCION GENERAL
     static public void menu(){
-        do{
-            System.out.println("\nMENU:");
-            System.out.println("1. Listar o crear productos");
-            System.out.println("2. Listar o crear vendedor");
-            System.out.println("3. Registrar una venta o listarlas");
-            System.out.println("0. Salir");
+        System.out.println("\nMENU:");
+        System.out.println("1. Listar o crear productos");
+        System.out.println("2. Listar o crear vendedor");
+        System.out.println("3. Registrar una venta o listarlas");
+        System.out.println("0. Salir");
 
-            System.out.print("\nIngrese una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
-
-        }while(opcion!=0);
+        System.out.print("\nIngrese una opción: ");
+        opcion = scanner.nextInt();
+        scanner.nextLine();
     }
 
     static public void accion(){
@@ -72,4 +69,98 @@ public class Main {
             default : System.out.println("Error en la opcion");break;
         }
     }
+
+    //MENU PRODUCTOS
+    static public void seccionProductos(){
+        boolean volver=false;
+        while(!volver) {
+            menuProducto();
+            volver=accionProducto();
+        }
+    }
+
+    static public void menuProducto(){
+            System.out.println("\nMENU PRODUCTO:");
+            System.out.println("1. Crear un producto");
+            System.out.println("2. Listar productos");
+            System.out.println("0. Volver al menu principal");
+            System.out.print("\nIngrese una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+    }
+
+    static public boolean accionProducto(){
+        boolean volver=false;
+        switch (opcion){
+            case 1 : ingresarProducto(); break;
+            case 2 : listar(); break;
+            case 0 : volver=true;break;
+            default : System.out.println("Error en la opcion");break;
+        }
+        return volver;
+    }
+
+    //MENU VENDEDOR
+    static public void seccionVendedor(){
+        boolean volver=false;
+        while(!volver) {
+            menuVendedor();
+            volver=accionVendedor();
+        }
+    }
+
+    static public void menuVendedor(){
+        System.out.println("\nMENU VENDEDOR:");
+        System.out.println("1. Crear un vendedor");
+        System.out.println("2. Listar vendedores");
+        System.out.println("0. Volver al menu principal");
+        System.out.print("\nIngrese una opción: ");
+        opcionVende = scanner.nextInt();
+        scanner.nextLine();
+    }
+
+    static public boolean accionVendedor(){
+        boolean volver=false;
+        switch (opcionVende){
+            case 1 : crearVendedor(); break;
+            case 2 : listarVendedores(); break;
+            case 0 : volver=true;break;
+            default : System.out.println("Error en la opcion");break;
+        }
+        return volver;
+    }
+
+    //MENU VENTAS
+    static public void seccionVentas(){
+        boolean volver=false;
+        while(!volver) {
+            menuVenta();
+            volver=accionVenta();
+        }
+    }
+
+    static public void menuVenta(){
+        System.out.println("\nMENU VENTA:");
+        System.out.println("1. Registrar venta");
+        System.out.println("0. Volver al menu principal");
+        System.out.print("\nIngrese una opción: ");
+        opcionVenta = scanner.nextInt();
+        scanner.nextLine();
+    }
+
+    static public boolean accionVenta(){
+        boolean volver=false;
+        switch (opcionVenta){
+            case 1 : registrarVenta(); break;
+            case 0 : volver=true;break;
+            default : System.out.println("Error en la opcion");break;
+        }
+        return volver;
+    }
+
+/*
+            case 2 : listarProductosByNombre(); break;
+            case 3 : listarProductosByCate(); break;
+            case 4 : listarProductosByPrecio(); break;*/
+
 }
