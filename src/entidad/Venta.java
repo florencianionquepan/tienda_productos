@@ -55,6 +55,7 @@ public class Venta {
         return "Venta{" +
                 "id=" + id +
                 ", vendedor=" + vendedor + "\n"+
+                ", comision=" + comision*100 + "%\n"+
                 ",Productos=" + productos +
                 '}';
     }
