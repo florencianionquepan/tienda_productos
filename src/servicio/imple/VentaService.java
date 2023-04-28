@@ -29,9 +29,12 @@ public class VentaService implements IVentaService {
         if(nueva.getVendedor()==null){
             throw new VentaException("Debe ingresar el vendedor a cargo");
         }
-        this.eliminarProductosRepo(nueva.getProductos());
+        this.modiStockRepo(nueva.getProductos());
         float comision=this.calcularComision(nueva);
-        return this.repo.crear(nueva);
+        nueva.setComision(comision);
+        Venta creada=this.repo.crear(nueva);
+        this.repoProducto.addVenta(creada);
+        return creada;
     }
 
     @Override
@@ -63,7 +66,7 @@ public class VentaService implements IVentaService {
         return comision;
     }
 
-    private void eliminarProductosRepo(List<Producto> productos){
+    private void modiStockRepo(List<Producto> productos){
         for(Producto produ: productos){
             Optional<Producto> oProdu=this.repoProducto.buscarByCodigo(produ.getCodigo());
             if(oProdu.isEmpty()){
@@ -76,7 +79,7 @@ public class VentaService implements IVentaService {
             if(oProdu.get().getCantidad()==0){
                 throw new VentaException(
                         String.format(
-                                "No existe stock en el producto de codigo $s por lo que no puede venderse",
+                                "No existe stock en el producto $s por lo que no puede venderse",
                                 produ.getCodigo()
                         ));
             }
