@@ -1,6 +1,7 @@
 package repository.memoria;
 
 import entidad.Producto;
+import entidad.Venta;
 
 import java.util.List;
 import java.util.Optional;
@@ -65,6 +66,16 @@ public class ProductoRepoMemo implements IProductoRepoMemo{
                 .orElse(null);
         if (producto != null) {
             producto.setCantidad(producto.getCantidad() - 1);
+        }
+    }
+
+    @Override
+    public void addVenta(Venta venta) {
+        for(Producto produ: venta.getProductos()){
+            Producto produData=productos.stream()
+                    .filter(pro->pro.getId()==produ.getId())
+                    .findAny().get();
+            produData.getVentas().add(venta);
         }
     }
 }

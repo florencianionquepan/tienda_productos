@@ -1,6 +1,7 @@
 package repository.memoria;
 
 import entidad.Producto;
+import entidad.Venta;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,4 +14,5 @@ public interface IProductoRepoMemo {
     List<Producto> buscarByCategoria(String categoria);
     List<Producto> buscarByRangoPrecio(float desde, float hasta);
     void disminuirCantidad(String codigo);
+    void addVenta(Venta venta);
 }
