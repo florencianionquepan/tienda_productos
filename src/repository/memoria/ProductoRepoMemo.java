@@ -65,8 +65,11 @@ public class ProductoRepoMemo implements IProductoRepoMemo{
                 .findFirst()
                 .orElse(null);
         if (producto != null) {
-            producto.setCantidad(producto.getCantidad() - 1);
+            producto.setCantidad(producto.getCantidad()-1);
+            int index = this.productos.indexOf(producto);
+            this.productos.set(index, producto);
         }
+
     }
 
     @Override
@@ -76,6 +79,8 @@ public class ProductoRepoMemo implements IProductoRepoMemo{
                     .filter(pro->pro.getId()==produ.getId())
                     .findAny().get();
             produData.getVentas().add(venta);
+            int index = this.productos.indexOf(produData);
+            this.productos.set(index, produData);
         }
     }
 }
