@@ -16,6 +16,7 @@ public class VendedorRepoMemo implements IVendedorRepoMemo{
     @Override
     public Vendedor crear(Vendedor vendedor) {
         vendedor.setId((long) (this.vendedores.size()+1));
+        this.vendedores.add(vendedor);
         return vendedor;
     }
 
