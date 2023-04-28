@@ -38,7 +38,7 @@ public class ProductoRepoMemo implements IProductoRepoMemo{
     @Override
     public List<Producto> buscarByNombre(String nombre) {
         return this.productos.stream()
-                .filter(prod->prod.getNombre().equals(nombre))
+                .filter(prod->prod.getNombre().contains(nombre))
                 .collect(Collectors.toList());
     }
 
