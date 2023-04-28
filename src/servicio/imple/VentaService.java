@@ -79,7 +79,7 @@ public class VentaService implements IVentaService {
             if(oProdu.get().getCantidad()==0){
                 throw new VentaException(
                         String.format(
-                                "No existe stock en el producto $s por lo que no puede venderse",
+                                "No existe stock en el producto %s por lo que no puede venderse",
                                 produ.getCodigo()
                         ));
             }
