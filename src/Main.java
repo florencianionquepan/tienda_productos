@@ -23,7 +23,7 @@ import java.util.Scanner;
 public class Main {
     static List<Producto> productos= ProductoLoader.cargarProductos();
     static IProductoRepoMemo repoProducto=new ProductoRepoMemo(productos);
-    //static IProductoService serProducto=new ProductoService(repoProducto);
+    static IProductoService serProducto=new ProductoService(repoProducto);
 
     static List<Vendedor> vendedores= VendedorLoader.cargarVende();
     static IVendedorRepoMemo repoVendedor=new VendedorRepoMemo(vendedores);
@@ -33,23 +33,6 @@ public class Main {
     static IVentaRepoMemo repoVenta=new VentaRepoMemo(ventas);
     static IVentaService serVenta=new VentaService(repoVenta, repoProducto);
 
-    static Venta ventaUno=VentaLoader.getVentaUno();
-    static Venta ventaDos=VentaLoader.getVentaDos();
-
-    static IProductoService actualizarVentasProductos(){
-        List<Producto> productos=new ArrayList<>();
-        //Crear nueva lista de productos actualizados:
-        List<Producto> productosActualizados = ProductoLoader.cargarProductos();
-        productosActualizados.get(0).setVentas(new ArrayList<>(Arrays.asList(ventaUno)));
-        productosActualizados.get(1).setVentas(new ArrayList<>(Arrays.asList(ventaUno,ventaDos)));
-        productosActualizados.get(2).setVentas(new ArrayList<>(Arrays.asList(ventaDos)));
-        productosActualizados.get(3).setVentas(new ArrayList<>(Arrays.asList(ventaDos)));
-        //System.out.println(productosActualizados);
-        IProductoRepoMemo repoProductoActualizado = new ProductoRepoMemo(productosActualizados);
-        return new ProductoService(repoProductoActualizado);
-    }
-
-    static IProductoService serProducto=actualizarVentasProductos();
     static int opcion;
     static int opcionPro;
     static int opcionVende;
@@ -132,7 +115,7 @@ public class Main {
         int cantidad = scanner.nextInt();
 
         Producto nuevoProducto = new Producto(0L,codigo, nombre,
-                precio, categoria, cantidad,new ArrayList<Venta>());
+                precio, categoria, cantidad);
         Producto creado=serProducto.crear(nuevoProducto);
         System.out.println("\nProducto creado con éxito.\n"+creado);
     }
@@ -204,7 +187,7 @@ public class Main {
         boolean volver=false;
         switch (opcionVenta){
             case 1 : registrarVenta(); break;
-            case 2: serVenta.listar().forEach(System.out::println);
+            case 2: serVenta.listar().forEach(System.out::println);break;
             case 0 : volver=true;break;
             default : System.out.println("Error en la opcion");break;
         }
@@ -280,7 +263,7 @@ public class Main {
             System.out.println("6.Ya tengo mis productos");
             System.out.println("Productos hasta el momento: ");
             for(Producto produ:productosCarrito){
-                produ.toString();
+                System.out.println(produ.toString());
             }
             System.out.println("7.Cancelar registro de venta");
             System.out.print("Ingrese una opción: ");
