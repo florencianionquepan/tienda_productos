@@ -39,4 +39,12 @@ public class VentaLoader {
         );
     }
 
+    public static Venta getVentaUno(){
+        return new Venta(1L,vendeUno,getProductosVentaUno,0.05f);
+    }
+
+    public static Venta getVentaDos(){
+        return new Venta(2L,vendeDos,getProductosVentaDos,0.1f);
+    }
+
 }
