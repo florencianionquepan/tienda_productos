@@ -43,7 +43,7 @@ public class Main {
         productosActualizados.get(1).setVentas(new ArrayList<>(Arrays.asList(ventaUno,ventaDos)));
         productosActualizados.get(2).setVentas(new ArrayList<>(Arrays.asList(ventaDos)));
         productosActualizados.get(3).setVentas(new ArrayList<>(Arrays.asList(ventaDos)));
-        System.out.println(productosActualizados);
+        //System.out.println(productosActualizados);
         IProductoRepoMemo repoProductoActualizado = new ProductoRepoMemo(productosActualizados);
         return new ProductoService(repoProductoActualizado);
     }
@@ -267,9 +267,10 @@ public class Main {
             System.out.println("1.Buscar producto por codigo");
             System.out.println("2.Buscar producto por nombre");
             System.out.println("3.Buscar producto por categoria");
-            System.out.println("4.Crear producto nuevo");
-            System.out.println("5.Ya tengo mis productos");
-            System.out.println("6.Cancelar registro de venta");
+            System.out.println("4.Buscar producto por rango de precios");
+            System.out.println("5.Crear producto nuevo");
+            System.out.println("6.Ya tengo mis productos");
+            System.out.println("7.Cancelar registro de venta");
             System.out.print("Ingrese una opción: ");
             int opcionProducto = scanner.nextInt();
             scanner.nextLine();
@@ -280,18 +281,40 @@ public class Main {
                 case 2:
                     System.out.println("Ingrese nombre del producto:");
                     String nombre = scanner.nextLine();
-                    serProducto.buscarByNombre(nombre).forEach(System.out::println);
-                    buscarProductoByCodigo(productos);
+                    try{
+                        serProducto.buscarByNombre(nombre).forEach(System.out::println);
+                        buscarProductoByCodigo(productos);
+                    }catch(ProductoException ex){
+                        System.out.println(ex.getMessage());
+                    }
                     break;
                 case 3:
                     System.out.println("Ingrese categoria del producto:");
                     String categoria = scanner.nextLine();
-                    serProducto.buscarByCategoria(categoria).forEach(System.out::println);
-                    buscarProductoByCodigo(productos);
+                    try{
+                        serProducto.buscarByCategoria(categoria).forEach(System.out::println);
+                        buscarProductoByCodigo(productos);
+                    }catch(ProductoException ex){
+                        System.out.println(ex.getMessage());
+                    }
                     break;
-                //case 4: produ=crearProducto();break;
-                case 5:salir=true;
-                case 6:return null;
+                case 4:
+                    System.out.println("Ingrese precio minimo: ");
+                    float desde= scanner.nextFloat();
+                    System.out.println("Ingrese precio maximo: ");
+                    float hasta= scanner.nextFloat();
+                    try{
+                        serProducto.buscarByRangoPrecio(desde,hasta).forEach(System.out::println);
+                        buscarProductoByCodigo(productos);
+                    }catch(ProductoException ex){
+                        System.out.println(ex.getMessage());
+                    }
+                    break;
+                case 5: ingresarProducto();
+                        System.out.println("Si desea ahora puede ingresar al carrito.");
+                        ;break;
+                case 6:salir=true;
+                case 7:return null;
                 default:System.out.println("\nOpción inválida.");break;
             }
         }while(!salir);
