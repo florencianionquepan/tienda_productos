@@ -7,8 +7,6 @@ import entidad.Venta;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Nodes.collect;
-
 public class VentaRepoMemo implements IVentaRepoMemo{
 
     public final List<Venta> ventas;
