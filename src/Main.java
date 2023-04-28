@@ -126,8 +126,11 @@ public class Main {
         scanner.nextLine();
         System.out.print("Ingrese la categoría: ");
         String categoria = scanner.nextLine();
+        System.out.print("Ingrese la cantidad: ");
+        int cantidad = scanner.nextInt();
 
-        Producto nuevoProducto = new Producto(0L,codigo, nombre, precio, categoria);
+        Producto nuevoProducto = new Producto(0L,codigo, nombre,
+                precio, categoria, cantidad,new ArrayList<Venta>());
         Producto creado=serProducto.crear(nuevoProducto);
         System.out.println("\nProducto creado con éxito.\n"+creado);
     }
