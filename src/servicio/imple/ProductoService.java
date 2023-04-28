@@ -49,15 +49,24 @@ public class ProductoService implements IProductoService {
         if(productos.size()==0){
             throw new ProductoException("No existen productos con el nombre ingresado");
         }
+        return productos;
     }
 
     @Override
     public List<Producto> buscarByRangoPrecio(float precioDesde, float precioHasta) {
-        return this.repo.buscarByRangoPrecio(precioDesde,precioHasta);
+        List<Producto> productos=this.repo.buscarByRangoPrecio(precioDesde,precioHasta);
+        if(productos.size()==0){
+            throw new ProductoException("No existen productos con el rango de precio ingresado");
+        }
+        return productos;
     }
 
     @Override
     public List<Producto> buscarByCategoria(String cate) {
-        return this.repo.buscarByCategoria(cate);
+        List<Producto> productos=this.repo.buscarByCategoria(cate);
+        if(productos.size()==0){
+            throw new ProductoException("No existen productos con la categoria ingresada");
+        }
+        return productos;
     }
 }
