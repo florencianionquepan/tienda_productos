@@ -33,8 +33,7 @@ public class VentaLoader {
     public static List<Venta> cargarVentas(){
         return new ArrayList<Venta>(
                 Arrays.asList(
-                    new Venta(1L,vendeUno,getProductosVentaUno,0.05f),
-                    new Venta(2L,vendeDos,getProductosVentaDos,0.1f)
+                    getVentaUno(),getVentaDos()
                 )
         );
     }
