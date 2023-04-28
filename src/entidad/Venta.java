@@ -55,15 +55,8 @@ public class Venta {
         return "Venta{" +
                 "id=" + id +
                 ", vendedor=" + vendedor +
-                ", productos=" + this.verProductos(productos) +
+                ", productos=" + productos +
                 '}';
     }
 
-    private String verProductos(List<Producto> productos){
-        String mensaje="";
-        for(Producto producto:productos){
-            mensaje=mensaje+ producto.toString()+" ";
-        }
-        return mensaje;
-    }
 }
