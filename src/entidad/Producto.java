@@ -1,7 +1,6 @@
 package entidad;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Producto {
     private Long id;
@@ -10,20 +9,18 @@ public class Producto {
     private float precio;
     private int cantidad;
     private String categoria;
-    private List<Venta> ventas;
 
     public Producto() {
     }
 
     public Producto(Long id, String codigo, String nombre, float precio,
-                    String categoria, int cantidad, List<Venta> ventas) {
+                    String categoria, int cantidad) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio = precio;
         this.categoria = categoria;
         this.cantidad = cantidad;
-        this.ventas = ventas;
     }
 
     public Long getId() {
@@ -74,14 +71,6 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-    public List<Venta> getVentas() {
-        return ventas;
-    }
-
-    public void setVentas(List<Venta> ventas) {
-        this.ventas = ventas;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -91,13 +80,13 @@ public class Producto {
         sb.append(", precio=").append(precio);
         sb.append(", categoria='").append(categoria).append('\'');
         sb.append(", cantidad=").append(cantidad);
-        if (!ventas.isEmpty()) {
+/*        if (!ventas.isEmpty()) {
             sb.append(", ventas=");
             sb.append("[idVenta: ");
             sb.append(ventas.stream().map(v -> String.valueOf(v.getId()))
                     .collect(Collectors.joining(", ")));
             sb.append("]");
-        }
+        }*/
         sb.append("}");
         return sb.toString();
     }
