@@ -29,7 +29,7 @@ public class Main {
 
     static List<Venta> ventas= VentaLoader.cargarVentas();
     static IVentaRepoMemo repoVenta=new VentaRepoMemo(ventas);
-    static IVentaService serVenta=new VentaService(repoVenta);
+    static IVentaService serVenta=new VentaService(repoVenta, repoProducto);
 
     static int opcion;
     static int opcionPro;
