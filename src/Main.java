@@ -95,12 +95,29 @@ public class Main {
     static public boolean accionProducto(){
         boolean volver=false;
         switch (opcion){
-            //case 1 : ingresarProducto(); break;
-            //case 2 : listarProductos(); break;
+            case 1 : ingresarProducto(); break;
+            case 2 : serProducto.listar().forEach(System.out::println);; break;
             case 0 : volver=true;break;
             default : System.out.println("Error en la opcion");break;
         }
         return volver;
+    }
+
+    static public void ingresarProducto(){
+        System.out.println("\nCREAR NUEVO PRODUCTO:");
+        System.out.print("Ingrese el código: ");
+        String codigo = scanner.nextLine();
+        System.out.print("Ingrese el nombre: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Ingrese el precio: ");
+        float precio = scanner.nextFloat();
+        scanner.nextLine();
+        System.out.print("Ingrese la categoría: ");
+        String categoria = scanner.nextLine();
+
+        Producto nuevoProducto = new Producto(0L,codigo, nombre, precio, categoria);
+        Producto creado=serProducto.crear(nuevoProducto);
+        System.out.println("\nProducto creado con éxito.\n"+creado);
     }
 
     //MENU VENDEDOR
