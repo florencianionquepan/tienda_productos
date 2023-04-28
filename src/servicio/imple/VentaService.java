@@ -33,7 +33,6 @@ public class VentaService implements IVentaService {
         float comision=this.calcularComision(nueva);
         nueva.setComision(comision);
         Venta creada=this.repo.crear(nueva);
-        this.repoProducto.addVenta(creada);
         return creada;
     }
 

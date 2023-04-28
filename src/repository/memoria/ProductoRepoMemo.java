@@ -8,12 +8,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class ProductoRepoMemo implements IProductoRepoMemo{
+public class ProductoRepoMemo implements IProductoRepoMemo {
 
     public final List<Producto> productos;
 
     public ProductoRepoMemo(List<Producto> productos) {
-        this.productos=productos;
+        this.productos = productos;
     }
 
     @Override
@@ -23,15 +23,15 @@ public class ProductoRepoMemo implements IProductoRepoMemo{
 
     @Override
     public Producto crear(Producto producto) {
-        producto.setId((long) (productos.size()+1));
+        producto.setId((long) (productos.size() + 1));
         productos.add(producto);
         return producto;
     }
 
     @Override
     public Optional<Producto> buscarByCodigo(String codigo) {
-        Optional<Producto> oProdu=this.productos.stream()
-                .filter(prod->prod.getCodigo().equals(codigo))
+        Optional<Producto> oProdu = this.productos.stream()
+                .filter(prod -> prod.getCodigo().equals(codigo))
                 .findAny();
         return oProdu;
     }
@@ -39,22 +39,22 @@ public class ProductoRepoMemo implements IProductoRepoMemo{
     @Override
     public List<Producto> buscarByNombre(String nombre) {
         return this.productos.stream()
-                .filter(prod->prod.getNombre().contains(nombre))
+                .filter(prod -> prod.getNombre().contains(nombre))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Producto> buscarByCategoria(String categoria) {
         return this.productos.stream()
-                .filter(prod->prod.getCategoria().equals(categoria))
+                .filter(prod -> prod.getCategoria().equals(categoria))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Producto> buscarByRangoPrecio(float desde, float hasta) {
         return this.productos.stream()
-                .filter(prod->prod.getPrecio()>=desde
-                && prod.getPrecio()<=hasta)
+                .filter(prod -> prod.getPrecio() >= desde
+                        && prod.getPrecio() <= hasta)
                 .collect(Collectors.toList());
     }
 
@@ -65,22 +65,10 @@ public class ProductoRepoMemo implements IProductoRepoMemo{
                 .findFirst()
                 .orElse(null);
         if (producto != null) {
-            producto.setCantidad(producto.getCantidad()-1);
+            producto.setCantidad(producto.getCantidad() - 1);
             int index = this.productos.indexOf(producto);
             this.productos.set(index, producto);
         }
 
-    }
-
-    @Override
-    public void addVenta(Venta venta) {
-        for(Producto produ: venta.getProductos()){
-            Producto produData=productos.stream()
-                    .filter(pro->pro.getId()==produ.getId())
-                    .findAny().get();
-            produData.getVentas().add(venta);
-            int index = this.productos.indexOf(produData);
-            this.productos.set(index, produData);
-        }
     }
 }

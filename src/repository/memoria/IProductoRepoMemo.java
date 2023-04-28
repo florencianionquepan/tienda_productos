@@ -14,5 +14,4 @@ public interface IProductoRepoMemo {
     List<Producto> buscarByCategoria(String categoria);
     List<Producto> buscarByRangoPrecio(float desde, float hasta);
     void disminuirCantidad(String codigo);
-    void addVenta(Venta venta);
 }
