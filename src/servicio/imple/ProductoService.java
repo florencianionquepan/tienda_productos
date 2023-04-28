@@ -45,7 +45,10 @@ public class ProductoService implements IProductoService {
 
     @Override
     public List<Producto> buscarByNombre(String nombre) {
-        return this.repo.buscarByNombre(nombre);
+        List<Producto> productos=this.repo.buscarByNombre(nombre);
+        if(productos.size()==0){
+            throw new ProductoException("No existen productos con el nombre ingresado");
+        }
     }
 
     @Override
