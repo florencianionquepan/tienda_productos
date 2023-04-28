@@ -6,6 +6,7 @@ import entidad.Vendedor;
 import entidad.Venta;
 import exceptions.ProductoException;
 import exceptions.VendedorException;
+import exceptions.VentaException;
 import repository.memoria.*;
 import servicio.imple.ProductoService;
 import servicio.imple.VendedorService;
@@ -223,9 +224,13 @@ public class Main {
             }
         }
         Venta ventaNueva = new Venta(0L, vende, productos,0f);
-        Venta creada=serVenta.crear(ventaNueva);
-        System.out.println("Venta creada: ");
-        System.out.println(creada.toString());
+        try{
+            Venta creada=serVenta.crear(ventaNueva);
+            System.out.println("Venta creada: ");
+            System.out.println(creada.toString());
+        }catch(VentaException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     public static Vendedor insertarVendedor() {
@@ -270,6 +275,10 @@ public class Main {
             System.out.println("4.Buscar producto por rango de precios");
             System.out.println("5.Crear producto nuevo");
             System.out.println("6.Ya tengo mis productos");
+            System.out.println("Productos hasta el momento: ");
+            for(Producto produ:productos){
+                produ.toString();
+            }
             System.out.println("7.Cancelar registro de venta");
             System.out.print("Ingrese una opción: ");
             int opcionProducto = scanner.nextInt();
@@ -303,6 +312,7 @@ public class Main {
                     float desde= scanner.nextFloat();
                     System.out.println("Ingrese precio maximo: ");
                     float hasta= scanner.nextFloat();
+                    scanner.nextLine();
                     try{
                         serProducto.buscarByRangoPrecio(desde,hasta).forEach(System.out::println);
                         buscarProductoByCodigo(productos);
@@ -321,7 +331,6 @@ public class Main {
         return productos;
     }
 
-    //ver si se actualiza la variable productos igual:
     private static void buscarProductoByCodigo(List<Producto> productos){
         System.out.println("Ingrese codigo del producto:");
         String codigo = scanner.nextLine();
