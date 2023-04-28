@@ -55,7 +55,7 @@ public class Venta {
         return "Venta{" +
                 "id=" + id +
                 ", vendedor=" + vendedor + "\n"+
-                ", productos=" + productos +
+                ",Productos=" + productos +
                 '}';
     }
 
