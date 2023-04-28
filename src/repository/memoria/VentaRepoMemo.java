@@ -18,6 +18,7 @@ public class VentaRepoMemo implements IVentaRepoMemo{
     @Override
     public Venta crear(Venta nueva) {
         nueva.setId((long) (this.ventas.size()+1));
+        ventas.add(nueva);
         return nueva;
     }
 
