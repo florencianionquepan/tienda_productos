@@ -4,6 +4,7 @@ import database.VentaLoader;
 import entidad.Producto;
 import entidad.Vendedor;
 import entidad.Venta;
+import exceptions.ProductoException;
 import repository.memoria.*;
 import servicio.imple.ProductoService;
 import servicio.imple.VendedorService;
@@ -216,14 +217,17 @@ public class Main {
         }
     }
 
-    private static List<Producto> buscarProductoByCodigo(List<Producto> productos){
+    //ver si se actualiza la variable productos igual:
+    private static void buscarProductoByCodigo(List<Producto> productos){
         System.out.println("Ingrese codigo del producto:");
         String codigo = scanner.nextLine();
-        Producto produ=serProducto.buscarByCodigo(codigo);
-        //Aca que pasa si el codigo no existe. VER
-        productos.add(produ);
-        System.out.println("Producto añadido al carrito: "+produ);
-        return productos;
+        try{
+            Producto produ=serProducto.buscarByCodigo(codigo);
+            productos.add(produ);
+            System.out.println("Producto añadido al carrito: "+produ);
+        }catch(ProductoException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
 }
