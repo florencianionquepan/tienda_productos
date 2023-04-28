@@ -58,13 +58,13 @@ public class ProductoRepoMemo implements IProductoRepoMemo{
     }
 
     @Override
-    public void eliminar(String codigo) {
-        int index = IntStream.range(0, this.productos.size())
-                .filter(i -> this.productos.get(i).getCodigo().equals(codigo))
+    public void disminuirCantidad(String codigo) {
+        Producto producto = this.productos.stream()
+                .filter(p -> p.getCodigo().equals(codigo))
                 .findFirst()
-                .orElse(-1);
-        if (index >= 0) {
-            this.productos.remove(index);
+                .orElse(null);
+        if (producto != null) {
+            producto.setCantidad(producto.getCantidad() - 1);
         }
     }
 }
