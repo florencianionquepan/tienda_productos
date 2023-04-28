@@ -15,13 +15,14 @@ import servicio.interfaz.IVendedorService;
 import servicio.interfaz.IVentaService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     static List<Producto> productos= ProductoLoader.cargarProductos();
     static IProductoRepoMemo repoProducto=new ProductoRepoMemo(productos);
-    static IProductoService serProducto=new ProductoService(repoProducto);
+    //static IProductoService serProducto=new ProductoService(repoProducto);
 
     static List<Vendedor> vendedores= VendedorLoader.cargarVende();
     static IVendedorRepoMemo repoVendedor=new VendedorRepoMemo(vendedores);
@@ -31,6 +32,23 @@ public class Main {
     static IVentaRepoMemo repoVenta=new VentaRepoMemo(ventas);
     static IVentaService serVenta=new VentaService(repoVenta, repoProducto);
 
+    static Venta ventaUno=VentaLoader.getVentaUno();
+    static Venta ventaDos=VentaLoader.getVentaDos();
+
+    static IProductoService actualizarVentasProductos(){
+        List<Producto> productos=new ArrayList<>();
+        //Crear nueva lista de productos actualizados:
+        List<Producto> productosActualizados = ProductoLoader.cargarProductos();
+        productosActualizados.get(0).setVentas(new ArrayList<>(Arrays.asList(ventaUno)));
+        productosActualizados.get(1).setVentas(new ArrayList<>(Arrays.asList(ventaUno,ventaDos)));
+        productosActualizados.get(2).setVentas(new ArrayList<>(Arrays.asList(ventaDos)));
+        productosActualizados.get(3).setVentas(new ArrayList<>(Arrays.asList(ventaDos)));
+        System.out.println(productosActualizados);
+        IProductoRepoMemo repoProductoActualizado = new ProductoRepoMemo(productosActualizados);
+        return new ProductoService(repoProductoActualizado);
+    }
+
+    static IProductoService serProducto=actualizarVentasProductos();
     static int opcion;
     static int opcionPro;
     static int opcionVende;
