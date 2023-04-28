@@ -38,12 +38,6 @@ public class Main {
     static Scanner scanner=new Scanner(System.in);
 
     public static void main(String[] args) {
-/*
-        List<Venta> listaVentas=serVenta.listar();
-        for(Venta venta:listaVentas){
-            System.out.println(venta.toString());
-        }*/
-
         do{
             menu();
             accion();
