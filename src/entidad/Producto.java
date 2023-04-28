@@ -97,7 +97,7 @@ public class Producto {
                     .collect(Collectors.joining(", ")));
             sb.append("]");
         }
-        sb.append("} \n");
+        sb.append("}");
         return sb.toString();
     }
 }
