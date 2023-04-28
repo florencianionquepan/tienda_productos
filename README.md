@@ -12,7 +12,8 @@
 
 ## DER
 
-![image](https://user-images.githubusercontent.com/85314154/235217722-d45326e2-9427-43ce-98ab-fd59a0dbbada.png)
+![image](https://user-images.githubusercontent.com/85314154/235217958-05e9af9e-0292-44a9-afff-c6acde91e3cc.png)
+
 
 
 
