@@ -47,9 +47,9 @@ public class Main {
     //MENU Y ACCION GENERAL
     static public void menu(){
         System.out.println("\nMENU GENERAL:");
-        System.out.println("1. Listar o crear productos");
-        System.out.println("2. Listar o crear vendedor");
-        System.out.println("3. Registrar una venta o listarlas");
+        System.out.println("1. Ir a menu productos");
+        System.out.println("2. Ir a menu vendedor");
+        System.out.println("3. Ir a menu ventas");
         System.out.println("0. Salir");
 
         System.out.print("\nIngrese una opción: ");
@@ -82,13 +82,13 @@ public class Main {
             System.out.println("2. Listar productos");
             System.out.println("0. Volver al menu principal");
             System.out.print("\nIngrese una opción: ");
-            opcion = scanner.nextInt();
+            opcionPro = scanner.nextInt();
             scanner.nextLine();
     }
 
     static public boolean accionProducto(){
         boolean volver=false;
-        switch (opcion){
+        switch (opcionPro){
             case 1 : ingresarProducto(); break;
             case 2 : serProducto.listar().forEach(System.out::println);; break;
             case 0 : volver=true;break;
@@ -155,7 +155,7 @@ public class Main {
 
         Vendedor nuevoVendedor = new Vendedor(0L,codigo,nombre,sueldo);
         Vendedor vendeCreado=serVende.crear(nuevoVendedor);
-        System.out.println("\nVendedor creado con éxito." + vendeCreado);
+        System.out.println("\nVendedor creado con éxito.\n" + vendeCreado);
     }
 
     //MENU VENTAS
@@ -170,6 +170,7 @@ public class Main {
     static public void menuVenta(){
         System.out.println("\nMENU VENTA:");
         System.out.println("1. Registrar venta");
+        System.out.println("2. Listar ventas");
         System.out.println("0. Volver al menu principal");
         System.out.print("\nIngrese una opción: ");
         opcionVenta = scanner.nextInt();
@@ -180,6 +181,7 @@ public class Main {
         boolean volver=false;
         switch (opcionVenta){
             case 1 : registrarVenta(); break;
+            case 2: serVenta.listar().forEach(System.out::println);
             case 0 : volver=true;break;
             default : System.out.println("Error en la opcion");break;
         }
