@@ -5,6 +5,7 @@ import entidad.Producto;
 import entidad.Vendedor;
 import entidad.Venta;
 import exceptions.ProductoException;
+import exceptions.VendedorException;
 import repository.memoria.*;
 import servicio.imple.ProductoService;
 import servicio.imple.VendedorService;
@@ -51,7 +52,7 @@ public class Main {
 
     //MENU Y ACCION GENERAL
     static public void menu(){
-        System.out.println("\nMENU:");
+        System.out.println("\nMENU GENERAL:");
         System.out.println("1. Listar o crear productos");
         System.out.println("2. Listar o crear vendedor");
         System.out.println("3. Registrar una venta o listarlas");
@@ -94,8 +95,8 @@ public class Main {
     static public boolean accionProducto(){
         boolean volver=false;
         switch (opcion){
-            case 1 : ingresarProducto(); break;
-            case 2 : listarProductos(); break;
+            //case 1 : ingresarProducto(); break;
+            //case 2 : listarProductos(); break;
             case 0 : volver=true;break;
             default : System.out.println("Error en la opcion");break;
         }
@@ -124,8 +125,8 @@ public class Main {
     static public boolean accionVendedor(){
         boolean volver=false;
         switch (opcionVende){
-            case 1 : crearVendedor(); break;
-            case 2 : listarVendedores(); break;
+            //case 1 : crearVendedor(); break;
+            //case 2 : listarVendedores(); break;
             case 0 : volver=true;break;
             default : System.out.println("Error en la opcion");break;
         }
@@ -160,61 +161,93 @@ public class Main {
         return volver;
     }
 
-    static public void registrarVenta(){
-        boolean salirRegVenta=false;
-        while(!salirRegVenta) {
+    static public void registrarVenta() {
+        boolean salirRegVenta = false;
+        Vendedor vende = null;
+        while (!salirRegVenta) {
             System.out.println("Registro de Venta");
             System.out.println("------------------");
+            vende = insertarVendedor();
+            System.out.println("Ha seleccionado al vendedor: "+vende);
+            List<Producto> productos = insertarProductos();
+            if (vende == null || productos == null) {
+                salirRegVenta = true;
+            }
+        }
+        Venta ventaNueva = new Venta(0L, vende, productos,0f);
+        Venta creada=serVenta.crear(ventaNueva);
+        System.out.println("Venta creada: ");
+        System.out.println(creada.toString());
+    }
+
+    public static Vendedor insertarVendedor() {
+        Vendedor vende = null;
+        boolean salir=false;
+        do{
             System.out.println("¿Desea buscar un vendedor existente o crear uno nuevo?");
             System.out.println("1. Buscar vendedor existente");
             serVende.listar().forEach(System.out::println);
             System.out.println("2. Crear vendedor nuevo");
+            System.out.println("3. Cancelar registro de venta");
             System.out.print("Ingrese una opción: ");
             int opcionVendedor = scanner.nextInt();
             scanner.nextLine();
-            Vendedor vende;
             switch (opcionVendedor){
                 case 1:
                     System.out.println("Ingrese codigo del vendedor:");
                     String codigo = scanner.nextLine();
-                    vende= serVende.buscarByCodigo(codigo);
+                    try{
+                        vende= serVende.buscarByCodigo(codigo);
+                        salir=true;
+                    }catch(VendedorException ex){
+                        System.out.println(ex.getMessage());
+                    }
                     break;
-                case 2: vende=crearVendedor();break;
+                //case 2: vende=crearVendedor();salir=true;break;
+                case 3: salir=true;return null;
                 default:System.out.println("\nOpción inválida.");break;
             }
+        }while(!salir);
+        return vende;
+    }
+
+    public static List<Producto> insertarProductos(){
+        boolean salir=false;
+        List<Producto> productos=new ArrayList<Producto>();
+        do{
             System.out.println("¿Desea buscar un producto existente o crear uno nuevo?");
             System.out.println("1.Buscar producto por codigo");
             System.out.println("2.Buscar producto por nombre");
             System.out.println("3.Buscar producto por categoria");
             System.out.println("4.Crear producto nuevo");
+            System.out.println("5.Ya tengo mis productos");
+            System.out.println("6.Cancelar registro de venta");
             System.out.print("Ingrese una opción: ");
             int opcionProducto = scanner.nextInt();
             scanner.nextLine();
-            List<Producto> productos=new ArrayList<Producto>();
             switch (opcionProducto){
                 case 1:
-                    productos=buscarProductoByCodigo(productos);
+                    buscarProductoByCodigo(productos);
                     break;
                 case 2:
                     System.out.println("Ingrese nombre del producto:");
                     String nombre = scanner.nextLine();
                     serProducto.buscarByNombre(nombre).forEach(System.out::println);
-                    productos=buscarProductoByCodigo(productos);
+                    buscarProductoByCodigo(productos);
                     break;
-                case 2:
+                case 3:
                     System.out.println("Ingrese categoria del producto:");
                     String categoria = scanner.nextLine();
                     serProducto.buscarByCategoria(categoria).forEach(System.out::println);
-                    productos=buscarProductoByCodigo(productos);
+                    buscarProductoByCodigo(productos);
                     break;
-                case 4: produ=crearProducto();break;
+                //case 4: produ=crearProducto();break;
+                case 5:salir=true;
+                case 6:return null;
                 default:System.out.println("\nOpción inválida.");break;
             }
-            //ir sumando producto a producto
-            //preguntar cuando finalice
-            //luego crear la venta.etc...
-
-        }
+        }while(!salir);
+        return productos;
     }
 
     //ver si se actualiza la variable productos igual:
@@ -225,6 +258,7 @@ public class Main {
             Producto produ=serProducto.buscarByCodigo(codigo);
             productos.add(produ);
             System.out.println("Producto añadido al carrito: "+produ);
+            System.out.println("Puedes seguir añadiendo productos");
         }catch(ProductoException ex){
             System.out.println(ex.getMessage());
         }
