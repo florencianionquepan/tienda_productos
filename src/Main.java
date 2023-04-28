@@ -12,21 +12,22 @@ import servicio.interfaz.IProductoService;
 import servicio.interfaz.IVendedorService;
 import servicio.interfaz.IVentaService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    List<Producto> productos= ProductoLoader.cargarProductos();
-    IProductoRepoMemo repoProducto=new ProductoRepoMemo(productos);
-    IProductoService serProducto=new ProductoService(repoProducto);
+    static List<Producto> productos= ProductoLoader.cargarProductos();
+    static IProductoRepoMemo repoProducto=new ProductoRepoMemo(productos);
+    static IProductoService serProducto=new ProductoService(repoProducto);
 
-    List<Vendedor> vendedores= VendedorLoader.cargarVende();
-    IVendedorRepoMemo repoVendedor=new VendedorRepoMemo(vendedores);
-    IVendedorService serVende=new VendedorService(repoVendedor);
+    static List<Vendedor> vendedores= VendedorLoader.cargarVende();
+    static IVendedorRepoMemo repoVendedor=new VendedorRepoMemo(vendedores);
+    static IVendedorService serVende=new VendedorService(repoVendedor);
 
-    List<Venta> ventas= VentaLoader.cargarVentas();
-    IVentaRepoMemo repoVenta=new VentaRepoMemo(ventas);
-    IVentaService serVenta=new VentaService(repoVenta);
+    static List<Venta> ventas= VentaLoader.cargarVentas();
+    static IVentaRepoMemo repoVenta=new VentaRepoMemo(ventas);
+    static IVentaService serVenta=new VentaService(repoVenta);
 
     static int opcion;
     static int opcionPro;
@@ -93,7 +94,7 @@ public class Main {
         boolean volver=false;
         switch (opcion){
             case 1 : ingresarProducto(); break;
-            case 2 : listar(); break;
+            case 2 : listarProductos(); break;
             case 0 : volver=true;break;
             default : System.out.println("Error en la opcion");break;
         }
@@ -158,9 +159,71 @@ public class Main {
         return volver;
     }
 
-/*
-            case 2 : listarProductosByNombre(); break;
-            case 3 : listarProductosByCate(); break;
-            case 4 : listarProductosByPrecio(); break;*/
+    static public void registrarVenta(){
+        boolean salirRegVenta=false;
+        while(!salirRegVenta) {
+            System.out.println("Registro de Venta");
+            System.out.println("------------------");
+            System.out.println("¿Desea buscar un vendedor existente o crear uno nuevo?");
+            System.out.println("1. Buscar vendedor existente");
+            serVende.listar().forEach(System.out::println);
+            System.out.println("2. Crear vendedor nuevo");
+            System.out.print("Ingrese una opción: ");
+            int opcionVendedor = scanner.nextInt();
+            scanner.nextLine();
+            Vendedor vende;
+            switch (opcionVendedor){
+                case 1:
+                    System.out.println("Ingrese codigo del vendedor:");
+                    String codigo = scanner.nextLine();
+                    vende= serVende.buscarByCodigo(codigo);
+                    break;
+                case 2: vende=crearVendedor();break;
+                default:System.out.println("\nOpción inválida.");break;
+            }
+            System.out.println("¿Desea buscar un producto existente o crear uno nuevo?");
+            System.out.println("1.Buscar producto por codigo");
+            System.out.println("2.Buscar producto por nombre");
+            System.out.println("3.Buscar producto por categoria");
+            System.out.println("4.Crear producto nuevo");
+            System.out.print("Ingrese una opción: ");
+            int opcionProducto = scanner.nextInt();
+            scanner.nextLine();
+            List<Producto> productos=new ArrayList<Producto>();
+            switch (opcionProducto){
+                case 1:
+                    productos=buscarProductoByCodigo(productos);
+                    break;
+                case 2:
+                    System.out.println("Ingrese nombre del producto:");
+                    String nombre = scanner.nextLine();
+                    serProducto.buscarByNombre(nombre).forEach(System.out::println);
+                    productos=buscarProductoByCodigo(productos);
+                    break;
+                case 2:
+                    System.out.println("Ingrese categoria del producto:");
+                    String categoria = scanner.nextLine();
+                    serProducto.buscarByCategoria(categoria).forEach(System.out::println);
+                    productos=buscarProductoByCodigo(productos);
+                    break;
+                case 4: produ=crearProducto();break;
+                default:System.out.println("\nOpción inválida.");break;
+            }
+            //ir sumando producto a producto
+            //preguntar cuando finalice
+            //luego crear la venta.etc...
+
+        }
+    }
+
+    private static List<Producto> buscarProductoByCodigo(List<Producto> productos){
+        System.out.println("Ingrese codigo del producto:");
+        String codigo = scanner.nextLine();
+        Producto produ=serProducto.buscarByCodigo(codigo);
+        //Aca que pasa si el codigo no existe. VER
+        productos.add(produ);
+        System.out.println("Producto añadido al carrito: "+produ);
+        return productos;
+    }
 
 }
