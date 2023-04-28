@@ -73,7 +73,14 @@ public class VentaService implements IVentaService {
                                 produ.getCodigo()
                         ));
             }
-            this.repoProducto.eliminar(produ.getCodigo());
+            if(oProdu.get().getCantidad()==0){
+                throw new VentaException(
+                        String.format(
+                                "No existe stock en el producto de codigo $s por lo que no puede venderse",
+                                produ.getCodigo()
+                        ));
+            }
+            this.repoProducto.disminuirCantidad(produ.getCodigo());
         }
     }
 }
