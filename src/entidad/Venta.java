@@ -54,7 +54,7 @@ public class Venta {
     public String toString() {
         return "Venta{" +
                 "id=" + id +
-                ", vendedor=" + vendedor +
+                ", vendedor=" + vendedor + "\n"+
                 ", productos=" + productos +
                 '}';
     }
