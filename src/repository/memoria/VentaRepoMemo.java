@@ -37,7 +37,7 @@ public class VentaRepoMemo implements IVentaRepoMemo{
     }
 
     @Override
-    public List<Venta> listar() {
+    public List<Venta> verTodos() {
         return this.ventas;
     }
 }
