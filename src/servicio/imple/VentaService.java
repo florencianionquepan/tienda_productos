@@ -4,17 +4,21 @@ import entidad.Producto;
 import entidad.Vendedor;
 import entidad.Venta;
 import exceptions.VentaException;
+import repository.memoria.IProductoRepoMemo;
 import repository.memoria.IVentaRepoMemo;
 import servicio.interfaz.IVentaService;
 
 import java.util.List;
+import java.util.Optional;
 
 public class VentaService implements IVentaService {
 
     private final IVentaRepoMemo repo;
+    private final IProductoRepoMemo repoProducto;
 
-    public VentaService(IVentaRepoMemo repo) {
+    public VentaService(IVentaRepoMemo repo, IProductoRepoMemo repoProducto) {
         this.repo = repo;
+        this.repoProducto = repoProducto;
     }
 
     @Override
@@ -25,6 +29,7 @@ public class VentaService implements IVentaService {
         if(nueva.getVendedor()==null){
             throw new VentaException("Debe ingresar el vendedor a cargo");
         }
+        this.eliminarProductosRepo(nueva.getProductos());
         float comision=this.calcularComision(nueva);
         return this.repo.crear(nueva);
     }
@@ -56,5 +61,19 @@ public class VentaService implements IVentaService {
             comision=0.1f;
         }
         return comision;
+    }
+
+    private void eliminarProductosRepo(List<Producto> productos){
+        for(Producto produ: productos){
+            Optional<Producto> oProdu=this.repoProducto.buscarByCodigo(produ.getCodigo());
+            if(oProdu.isEmpty()){
+                throw new VentaException(
+                        String.format(
+                                "El producto de codigo $s no existe por lo que no puede venderse",
+                                produ.getCodigo()
+                        ));
+            }
+            this.repoProducto.eliminar(produ.getCodigo());
+        }
     }
 }
