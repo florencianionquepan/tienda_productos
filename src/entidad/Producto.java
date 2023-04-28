@@ -92,9 +92,9 @@ public class Producto {
         sb.append(", categoria='").append(categoria).append('\'');
         sb.append(", ventas=");
         if (ventas.isEmpty()) {
-            sb.append("[]");
+            sb.append("No se compro nunca");
         } else {
-            sb.append("[");
+            sb.append("[id: ");
             sb.append(ventas.stream().map(v -> String.valueOf(v.getId()))
                     .collect(Collectors.joining(", ")));
             sb.append("]");
