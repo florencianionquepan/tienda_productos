@@ -33,6 +33,14 @@ public class ProductoService implements IProductoService {
         return this.repo.crear(nuevo);
     }
 
+    //Queda a futuro implementar la funcionalidad para agregar stock de un producto,
+    //Ya que con el mismo codigo no es posible agregarlo
+    //Se considera que el codigo es unico para cada producto
+    @Override
+    public Producto modificar(Producto nuevo, Long id) {
+        return null;
+    }
+
     @Override
     public Producto buscarByCodigo(String codigo) {
         Optional<Producto> oProd=this.repo.buscarByCodigo(codigo);
