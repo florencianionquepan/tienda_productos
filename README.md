@@ -1,4 +1,4 @@
-#Tienda de Productos :department_store:
+# Tienda de Productos :department_store:
 
 *Deberá implementarse la funcionalidad básica de una tienda de productos:
 
@@ -10,6 +10,10 @@
 - Deberá diseñarse un Diagrama de Entidad Relación para la solución.
 - Deberá ejecutarse por consola y se almacenarán los datos en memoria.
 
-##DER
+## DER
+
+![image](https://user-images.githubusercontent.com/85314154/235193850-bb00f528-cc83-4339-b153-c608dd3b8fa1.png)
+
+
 
 
