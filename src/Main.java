@@ -55,6 +55,7 @@ public class Main {
     static int opcionVende;
     static int opcionVenta;
     static Scanner scanner=new Scanner(System.in);
+    static List<Producto> productosCarrito=new ArrayList<Producto>();
 
     public static void main(String[] args) {
         do{
@@ -214,22 +215,21 @@ public class Main {
     static public void registrarVenta() {
         boolean salirRegVenta = false;
         Vendedor vende = null;
-        List<Producto> productosCarrito=new ArrayList<Producto>();
         while (!salirRegVenta) {
             System.out.println("Registro de Venta");
             System.out.println("------------------");
             vende = insertarVendedor();
             System.out.println("Ha seleccionado al vendedor: "+vende);
-            productosCarrito = insertarProductos();
-            if (vende == null || productosCarrito == null) {
-                salirRegVenta = true;
-            }
+            insertarProductos();
+            salirRegVenta=true;
         }
         Venta ventaNueva = new Venta(0L, vende, productosCarrito,0f);
         try{
             Venta creada=serVenta.crear(ventaNueva);
             System.out.println("Venta creada: ");
             System.out.println(creada.toString());
+            //Limpio variable productosCarrito
+            productosCarrito.clear();
         }catch(VentaException ex){
             System.out.println(ex.getMessage());
         }
@@ -258,7 +258,9 @@ public class Main {
                         System.out.println(ex.getMessage());
                     }
                     break;
-                //case 2: vende=crearVendedor();salir=true;break;
+                case 2: crearVendedor();
+                        System.out.println("Si desea ahora puede elegir al vendedor creado.");
+                        break;
                 case 3: salir=true;return null;
                 default:System.out.println("\nOpción inválida.");break;
             }
@@ -266,9 +268,8 @@ public class Main {
         return vende;
     }
 
-    public static List<Producto> insertarProductos(){
+    public static void insertarProductos(){
         boolean salir=false;
-        List<Producto> productosCarrito=new ArrayList<Producto>();
         do{
             System.out.println("¿Desea buscar un producto existente o crear uno nuevo?");
             System.out.println("1.Buscar producto por codigo");
@@ -325,12 +326,11 @@ public class Main {
                 case 5: ingresarProducto();
                         System.out.println("Si desea ahora puede ingresar al carrito.");
                         ;break;
-                case 6:salir=true;
-                case 7:return null;
+                case 6:salir=true;break;
+                case 7:productosCarrito.clear();salir=true;
                 default:System.out.println("\nOpción inválida.");break;
             }
         }while(!salir);
-        return productosCarrito;
     }
 
     private static void buscarProductoByCodigo(List<Producto> productosCarro){
