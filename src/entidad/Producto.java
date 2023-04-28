@@ -90,16 +90,14 @@ public class Producto {
         sb.append(", nombre='").append(nombre).append('\'');
         sb.append(", precio=").append(precio);
         sb.append(", categoria='").append(categoria).append('\'');
-        sb.append(", ventas=");
-        if (ventas.isEmpty()) {
-            sb.append("No se compro nunca");
-        } else {
-            sb.append("[id: ");
+        if (!ventas.isEmpty()) {
+            sb.append(", ventas=");
+            sb.append("[idVenta: ");
             sb.append(ventas.stream().map(v -> String.valueOf(v.getId()))
                     .collect(Collectors.joining(", ")));
             sb.append("]");
         }
-        sb.append("}");
+        sb.append("} \n");
         return sb.toString();
     }
 }
