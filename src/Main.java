@@ -16,7 +16,7 @@ import servicio.interfaz.IVendedorService;
 import servicio.interfaz.IVentaService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -244,7 +244,7 @@ public class Main {
                 case 2: crearVendedor();
                         System.out.println("Si desea ahora puede elegir al vendedor creado.");
                         break;
-                case 3: salir=true;return null;
+                case 3: salir=true;
                 default:System.out.println("\nOpción inválida.");break;
             }
         }while(!salir);
@@ -326,6 +326,31 @@ public class Main {
             System.out.println("Puedes seguir añadiendo productos");
         }catch(ProductoException ex){
             System.out.println(ex.getMessage());
+        }
+    }
+
+    //FUNCIONES PARA CONTROLAR ENTRADAS DEL MENU
+    public static int leerEntero() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            try {
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Error: debes ingresar un número entero.");
+                scanner.nextLine(); // para descartar la entrada inválida
+            }
+        }
+    }
+
+    public static float leerFloat() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            try {
+                return scanner.nextFloat();
+            } catch (InputMismatchException e) {
+                System.out.println("Error: debes ingresar un número flotante.");
+                scanner.nextLine(); // para descartar la entrada inválida
+            }
         }
     }
 
