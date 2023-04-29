@@ -54,8 +54,8 @@ public class Venta {
     public String toString() {
         return "Venta{" +
                 "id=" + id +
-                ", vendedor=" + vendedor + "\n"+
-                ", comision=" + comision*100 + "%\n"+
+                ", Vendedor=" + vendedor + "\n"+
+                ",comision=" + comision*100 + "%\n"+
                 ",Productos=" + productos +
                 '}';
     }

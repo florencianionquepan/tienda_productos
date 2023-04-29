@@ -202,8 +202,13 @@ public class Main {
             System.out.println("Registro de Venta");
             System.out.println("------------------");
             vende = insertarVendedor();
-            System.out.println("Ha seleccionado al vendedor: "+vende);
+            if(vende==null){
+                return;
+            }
             insertarProductos();
+            if(productosCarrito.size()==0){
+                return;
+            }
             salirRegVenta=true;
         }
         Venta ventaNueva = new Venta(0L, vende, productosCarrito,0f);
@@ -211,11 +216,10 @@ public class Main {
             Venta creada=serVenta.crear(ventaNueva);
             System.out.println("Venta creada: ");
             System.out.println(creada.toString());
-            //Limpio variable productosCarrito
-            productosCarrito.clear();
         }catch(VentaException ex){
             System.out.println(ex.getMessage());
         }
+        productosCarrito.clear();
     }
 
     public static Vendedor insertarVendedor() {
@@ -236,6 +240,7 @@ public class Main {
                     String codigo = scanner.nextLine();
                     try{
                         vende= serVende.buscarByCodigo(codigo);
+                        System.out.println("Ha seleccionado al vendedor: "+vende);
                         salir=true;
                     }catch(VendedorException ex){
                         System.out.println(ex.getMessage());
@@ -244,7 +249,7 @@ public class Main {
                 case 2: crearVendedor();
                         System.out.println("Si desea ahora puede elegir al vendedor creado.");
                         break;
-                case 3: salir=true;
+                case 3: salir=true;break;
                 default:System.out.println("\nOpción inválida.");break;
             }
         }while(!salir);
@@ -310,7 +315,7 @@ public class Main {
                         System.out.println("Si desea ahora puede ingresar al carrito.");
                         ;break;
                 case 6:salir=true;break;
-                case 7:productosCarrito.clear();salir=true;
+                case 7:productosCarrito.clear();salir=true;break;
                 default:System.out.println("\nOpción inválida.");break;
             }
         }while(!salir);

@@ -28,7 +28,7 @@ public class VendedorRepoMemo implements IVendedorRepoMemo{
     @Override
     public Optional<Vendedor> buscarByCodigo(String codigo) {
         Optional<Vendedor> oVende=this.vendedores.stream()
-                .filter(vende->vende.getCodigo().equals(codigo))
+                .filter(vende->vende.getCodigo().equalsIgnoreCase(codigo))
                 .findAny();
         return oVende;
     }

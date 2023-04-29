@@ -1,7 +1,6 @@
 package repository.memoria;
 
 import entidad.Producto;
-import entidad.Venta;
 
 import java.util.List;
 import java.util.Optional;
