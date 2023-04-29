@@ -56,7 +56,7 @@ public class Main {
         System.out.println("0. Salir");
 
         System.out.print("\nIngrese una opción: ");
-        opcion = scanner.nextInt();
+        opcion = leerEntero();
         scanner.nextLine();
     }
 
@@ -85,7 +85,7 @@ public class Main {
             System.out.println("2. Listar productos");
             System.out.println("0. Volver al menu principal");
             System.out.print("\nIngrese una opción: ");
-            opcionPro = scanner.nextInt();
+            opcionPro = leerEntero();
             scanner.nextLine();
     }
 
@@ -107,12 +107,12 @@ public class Main {
         System.out.print("Ingrese el nombre: ");
         String nombre = scanner.nextLine();
         System.out.print("Ingrese el precio: ");
-        float precio = scanner.nextFloat();
+        float precio = leerFloat();
         scanner.nextLine();
         System.out.print("Ingrese la categoría: ");
         String categoria = scanner.nextLine();
         System.out.print("Ingrese la cantidad: ");
-        int cantidad = scanner.nextInt();
+        int cantidad = leerEntero();
 
         Producto nuevoProducto = new Producto(0L,codigo, nombre,
                 precio, categoria, cantidad);
@@ -135,7 +135,7 @@ public class Main {
         System.out.println("2. Listar vendedores");
         System.out.println("0. Volver al menu principal");
         System.out.print("\nIngrese una opción: ");
-        opcionVende = scanner.nextInt();
+        opcionVende = leerEntero();
         scanner.nextLine();
     }
 
@@ -157,7 +157,7 @@ public class Main {
         System.out.print("Ingrese el nombre: ");
         String nombre = scanner.nextLine();
         System.out.print("Ingrese el sueldo: ");
-        float sueldo = scanner.nextFloat();
+        float sueldo = leerFloat();
 
         Vendedor nuevoVendedor = new Vendedor(0L,codigo,nombre,sueldo);
         Vendedor vendeCreado=serVende.crear(nuevoVendedor);
@@ -179,7 +179,7 @@ public class Main {
         System.out.println("2. Listar ventas");
         System.out.println("0. Volver al menu principal");
         System.out.print("\nIngrese una opción: ");
-        opcionVenta = scanner.nextInt();
+        opcionVenta = leerEntero();
         scanner.nextLine();
     }
 
@@ -228,7 +228,7 @@ public class Main {
             System.out.println("2. Crear vendedor nuevo");
             System.out.println("3. Cancelar registro de venta");
             System.out.print("Ingrese una opción: ");
-            int opcionVendedor = scanner.nextInt();
+            int opcionVendedor = leerEntero();
             scanner.nextLine();
             switch (opcionVendedor){
                 case 1:
@@ -267,7 +267,7 @@ public class Main {
             }
             System.out.println("7.Cancelar registro de venta");
             System.out.print("Ingrese una opción: ");
-            int opcionProducto = scanner.nextInt();
+            int opcionProducto = leerEntero();
             scanner.nextLine();
             switch (opcionProducto){
                 case 1:
@@ -295,9 +295,9 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("Ingrese precio minimo: ");
-                    float desde= scanner.nextFloat();
+                    float desde= leerFloat();
                     System.out.println("Ingrese precio maximo: ");
-                    float hasta= scanner.nextFloat();
+                    float hasta= leerFloat();
                     scanner.nextLine();
                     try{
                         serProducto.buscarByRangoPrecio(desde,hasta).forEach(System.out::println);
@@ -331,27 +331,35 @@ public class Main {
 
     //FUNCIONES PARA CONTROLAR ENTRADAS DEL MENU
     public static int leerEntero() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
+        boolean ingreso=false;
+        int entero= 90;
+        while (!ingreso) {
             try {
-                return scanner.nextInt();
+                entero=scanner.nextInt();
+                return entero;
             } catch (InputMismatchException e) {
                 System.out.println("Error: debes ingresar un número entero.");
                 scanner.nextLine(); // para descartar la entrada inválida
+                System.out.println("Ingresa nuevamente: ");
             }
         }
+        return entero;
     }
 
     public static float leerFloat() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
+        boolean ingreso=false;
+        float flotante= 90.5F;
+        while (!ingreso) {
             try {
-                return scanner.nextFloat();
+                flotante=scanner.nextFloat();
+                return flotante;
             } catch (InputMismatchException e) {
                 System.out.println("Error: debes ingresar un número flotante.");
                 scanner.nextLine(); // para descartar la entrada inválida
+                System.out.println("Ingresa nuevamente: ");
             }
         }
+        return flotante;
     }
 
 }
