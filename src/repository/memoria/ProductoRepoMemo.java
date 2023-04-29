@@ -30,7 +30,7 @@ public class ProductoRepoMemo implements IProductoRepoMemo {
     @Override
     public Optional<Producto> buscarByCodigo(String codigo) {
         Optional<Producto> oProdu = this.productos.stream()
-                .filter(prod -> prod.getCodigo().equals(codigo))
+                .filter(prod -> prod.getCodigo().equalsIgnoreCase(codigo))
                 .findAny();
         return oProdu;
     }
@@ -38,14 +38,15 @@ public class ProductoRepoMemo implements IProductoRepoMemo {
     @Override
     public List<Producto> buscarByNombre(String nombre) {
         return this.productos.stream()
-                .filter(prod -> prod.getNombre().contains(nombre))
+                .filter(prod -> prod.getNombre().toLowerCase()
+                        .contains(nombre.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Producto> buscarByCategoria(String categoria) {
         return this.productos.stream()
-                .filter(prod -> prod.getCategoria().equals(categoria))
+                .filter(prod -> prod.getCategoria().equalsIgnoreCase(categoria))
                 .collect(Collectors.toList());
     }
 
