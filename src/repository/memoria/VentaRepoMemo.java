@@ -4,6 +4,7 @@ import entidad.Producto;
 import entidad.Vendedor;
 import entidad.Venta;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,8 @@ public class VentaRepoMemo implements IVentaRepoMemo{
     @Override
     public Venta crear(Venta nueva) {
         nueva.setId((long) (this.ventas.size()+1));
+        List<Producto> productos = new ArrayList<Producto>(nueva.getProductos());
+        nueva.setProductos(productos);
         ventas.add(nueva);
         return nueva;
     }
